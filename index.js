@@ -10,18 +10,32 @@ const getUser = id => {
     }, 2000);
   });
 };
+// //promise based approach
+// getUser(1)
+//   .then(user => getRepos(user.gitHubUserName))
+//   .then(repos => getCommits(repos[0]))
+//   .then(commits => console.log(commits))
+//   .catch(err => err.message);
 
-getUser(1)
-  .then(user => getRepos(user.gitHubUserName))
-  .then(repos => getCommits(repos[0]))
-  .then(commits => console.log(commits))
-  .catch(err => err.message);
+//async and await
+const displayCommits = async () => {
+  try {
+    const user = await getUser(1);
+    const repos = await getRepos(user.gitHubUserName);
+    const commits = await getCommits(repos[0]);
+    console.log(commits);
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+displayCommits();
 const getRepos = username => {
   return new Promise((resolve, reject) => {
     setTimeout(
       () => {
         console.log("fetching repos..");
-        resolve(["repo1", "repo2", "repo3"]);
+        // resolve(["repo1", "repo2", "repo3"]);
+        reject(new Error("There was an error"));
       },
 
       2000
@@ -40,4 +54,4 @@ const getCommits = repo => {
     );
   });
 };
-Promise.all([getRepos, getCommits]).then(result => console.log(result));
+// Promise.all([getRepos, getCommits]).then(result => console.log(result));
