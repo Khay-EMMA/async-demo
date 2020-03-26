@@ -40,3 +40,4 @@ const getCommits = repo => {
     );
   });
 };
+Promise.all([getRepos, getCommits]).then(result => console.log(result));
