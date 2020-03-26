@@ -3,7 +3,7 @@ console.log("before");
 console.log("After");
 
 const getUser = id => {
-  return new Promise(resolve, reject => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       console.log("Reading user from the database");
       resolve({ id: id, gitHubUserName: "Njoku" });
@@ -13,11 +13,11 @@ const getUser = id => {
 
 getUser(1)
   .then(user => getRepos(user.gitHubUserName))
-  .then(repos => getCommits(repo[0]))
-  .then(getCommits => console.log(commits))
-  .catch(err => error.message);
+  .then(repos => getCommits(repos[0]))
+  .then(commits => console.log(commits))
+  .catch(err => err.message);
 const getRepos = username => {
-  return new Promise(resolve, reject => {
+  return new Promise((resolve, reject) => {
     setTimeout(
       () => {
         console.log("fetching repos..");
@@ -29,7 +29,7 @@ const getRepos = username => {
   });
 };
 const getCommits = repo => {
-  return new Promise(resolve, reject => {
+  return new Promise((resolve, reject) => {
     setTimeout(
       () => {
         console.log("Fetchin commitss...");
