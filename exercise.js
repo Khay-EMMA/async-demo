@@ -10,23 +10,6 @@
 //   }
 // });
 
-function displayCustomers() {
-    try {
-  const customer = await getCustomer(1);
-  console.log("Customer: ", customer);
-  
-  if (customer.isGold) {
-    const movies = await getTopMovies(movies);
-  
-    console.log("Top movies: ", movies);
-    const email = await sendEmail(customer.email, movies);
-    console.log("Email sent");
-  }
-}
-catch (err){
-  console.log(err.message)
-}
-}
 function getCustomer(id) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -55,3 +38,21 @@ function sendEmail(email, movies) {
     }, 4000);
   });
 }
+
+const displayCustomers = async () => {
+  try {
+    const customer = await getCustomer(1);
+    console.log("Customer: ", customer);
+
+    if (customer.isGold) {
+      const movies = await getTopMovies();
+
+      console.log("Top movies: ", movies);
+      const email = await sendEmail(customer.email, movies);
+      console.log("Email sent");
+    }
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+displayCustomers();
